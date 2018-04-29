@@ -5,8 +5,8 @@ using System.Collections.Generic;
 [AddComponentMenu("Camera-Control/Smooth Mouse Look")]
 public class SmoothMouseLook : MonoBehaviour {
 
-	public float sensitivityX = 15F;
-	public float sensitivityY = 15F;
+	private float sensitivityX;
+	private float sensitivityY;
 
 	public float minimumX = -360F;
 	public float maximumX = 360F;
@@ -31,6 +31,7 @@ public class SmoothMouseLook : MonoBehaviour {
 
 	void Start ()
 	{		
+		sensitivityX = sensitivityY = 1;
 		Rigidbody rb = GetComponent<Rigidbody>();	
 		if (rb)
 			rb.freezeRotation = true;
@@ -42,8 +43,11 @@ public class SmoothMouseLook : MonoBehaviour {
 		rotAverageY = 0f;
 		rotAverageX = 0f;
 
-		rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-		rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+		rotationY += Input.GetAxis("Mouse Y") * sensitivityX;
+		rotationX += Input.GetAxis("Mouse X") * sensitivityY;
+
+		Debug.Log ( sensitivityX);
+		Debug.Log ( sensitivityY);
 
 		rotArrayY.Add(rotationY);
 		rotArrayX.Add(rotationX);
@@ -73,8 +77,6 @@ public class SmoothMouseLook : MonoBehaviour {
 
 		transform.localRotation = originalRotation * xQuaternion * yQuaternion;
 
-
-
 	}
 
 	public static float ClampAngle (float angle, float min, float max)
@@ -89,5 +91,13 @@ public class SmoothMouseLook : MonoBehaviour {
 			}			
 		}
 		return Mathf.Clamp (angle, min, max);
+	}
+
+	public float Sensibility
+	{
+		set{sensitivityX = value;
+			sensitivityY = value;}
+
+		get{return sensitivityX;}
 	}
 }

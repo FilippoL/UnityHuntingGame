@@ -6,10 +6,8 @@ public class FollowInput : Inputs {
 
 	public override Vector3 Steering {
 		get{
-			if (GetComponent<FiniteStateMachine>().leader.position != Vector3.zero) {
-
+			if (GetComponent<FiniteStateMachine>().leader != null) {
 				return Steerings.Follow(_origin, GetComponent<FiniteStateMachine>().leader);
-
 			}
 
 			else{

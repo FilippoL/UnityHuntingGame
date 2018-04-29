@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MovementManager = UnityStandardAssets.Characters.ThirdPerson.MovementManager;
 
 public class Spawner : MonoBehaviour {
 
@@ -19,11 +20,15 @@ public class Spawner : MonoBehaviour {
 		for (int i = 0; i < max_objects; i++) {
 			Vector3 pos = new Vector3 (transform.position.x + RandomPointOnUnitCircle (radius).x, transform.position.y, transform.position.z + RandomPointOnUnitCircle (radius).y);
 			Vector3 dir = transform.position - pos;
-			objects_spawned.Add(Instantiate (spawn_what, pos ,  Quaternion.LookRotation(dir)));
+			objects_spawned.Add(Instantiate (spawn_what, pos,  Quaternion.LookRotation(dir * (i + 1))));
 			if (leader_based) {
 				if ((i % leader_frequency) == 0) {
-					objects_spawned[i].tag = "Leader";	
-				} 				
+					objects_spawned[i].tag = "Leader";
+					objects_spawned[i].GetComponent<MovementManager>().canjump = true;	
+				} 	
+				if ((i % 2) == 0 ) {
+					objects_spawned[i].GetComponent<MovementManager>().canjump = true;	
+				} 
 			}
 
 		}

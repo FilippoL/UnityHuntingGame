@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 
@@ -22,10 +23,8 @@ public class SniperMovements : MonoBehaviour
 
 	//To change sensitivity when zoomed
 	SmoothMouseLook mouseLook;
-	float standardSensitivity;
+	public float standardSensitivity;
 	float zoomSensitivity = 0.1f;
-
-	public static Vector3 windSpeed = new Vector3(2f, 0f, 3f);
 
 	void Start() 
 	{
@@ -36,7 +35,6 @@ public class SniperMovements : MonoBehaviour
 
 		mouseLook = GetComponent<SmoothMouseLook>();
 
-		standardSensitivity = mouseLook.sensitivityX;
 	}
 
 	void Update() 
@@ -48,8 +46,10 @@ public class SniperMovements : MonoBehaviour
 		} 
 
 		if (!isScope) {
+			standardSensitivity = mouseLook.Sensibility;
 			currentZoom = 1;
-		}
+		} 
+
 
 		ZoomSight();
 		StartCoroutine(FireBullet());			
@@ -61,14 +61,12 @@ public class SniperMovements : MonoBehaviour
 		if (currentZoom == 1) 
 		{
 			//Change sensitivity
-			mouseLook.sensitivityX = standardSensitivity;
-			mouseLook.sensitivityY = standardSensitivity;
+			mouseLook.Sensibility = standardSensitivity;
 		}
 		else 
 		{
 			//Change sensitivity
-			mouseLook.sensitivityX = zoomSensitivity;
-			mouseLook.sensitivityY = zoomSensitivity;
+			mouseLook.Sensibility = zoomSensitivity;
 		}
 
 		//Zoom with mouse wheel
@@ -99,7 +97,7 @@ public class SniperMovements : MonoBehaviour
 	IEnumerator FireBullet()
 	{
 		if (isScope) {
-			if ((Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) && !audio_source.isPlaying) {
+			if ((Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) && !audio_source.isPlaying && Time.timeScale != 0) {
 				//Create a new bullet
 				GameObject newBullet = Instantiate (bulletObj, cam.transform.position, cam.transform.rotation);
 
@@ -115,6 +113,18 @@ public class SniperMovements : MonoBehaviour
 			}
 		}
 	}
+
+
+	private void OnTriggerEnter(Collider coll)
+	{
+		if (coll.CompareTag ("Leader") && coll.gameObject.GetComponent<FiniteStateMachine>().attacking) {
+
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex - 1);
+
+			Debug.Log ("GAMEOVER");
+		}
+	}
+
 
 }
 

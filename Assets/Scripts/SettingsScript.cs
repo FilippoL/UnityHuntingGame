@@ -52,8 +52,7 @@ public class SettingsScript : MonoBehaviour {
 		Resolution resolution = resolutions [res];
 		Screen.SetResolution (resolution.width, resolution.height, Screen.fullScreen);
 	}
-
-
+		
 	public void SetVolume(float volume)
 	{
 		audioMixer.SetFloat ("VolumeExposed", volume);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateComponent : MonoBehaviour {
+public class ActivateScope : MonoBehaviour {
 
 	public Animator animator;
 

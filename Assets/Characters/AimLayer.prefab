@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 223260874024246172}
   - component: {fileID: 114881562244205530}
   - component: {fileID: 114551212438382220}
-  - component: {fileID: 114813759250066270}
+  - component: {fileID: 114828635103170384}
   m_Layer: 5
   m_Name: AimLayer
   m_TagString: Untagged
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114813759250066270
+--- !u!114 &114828635103170384
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618093525478028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94a16a08ff99ca942ae306e7898c493a, type: 3}
+  m_Script: {fileID: 11500000, guid: c2b8d097b27e8014fb44d78301d57786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}

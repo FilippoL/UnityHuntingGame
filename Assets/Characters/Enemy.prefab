@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 137845159781256828}
   m_Layer: 0
   m_Name: EthanBody
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -688,11 +688,10 @@ GameObject:
   - component: {fileID: 114004453078678792}
   - component: {fileID: 114090312581225226}
   - component: {fileID: 114674979215948214}
-  - component: {fileID: 114534044549422238}
   - component: {fileID: 114659246678912398}
-  - component: {fileID: 114568921882093490}
-  - component: {fileID: 114753736755903138}
   - component: {fileID: 114352022105129866}
+  - component: {fileID: 114971472433795646}
+  - component: {fileID: 114344648236312114}
   - component: {fileID: 114451186160237856}
   - component: {fileID: 135211715109013594}
   m_Layer: 0
@@ -2178,7 +2177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1522157151163196}
   m_LocalRotation: {x: -0, y: 0.9810746, z: -0, w: 0.1936306}
-  m_LocalPosition: {x: 303.43787, y: 1.9491119, z: 212.71443}
+  m_LocalPosition: {x: 1007.2168, y: 251.64769, z: 379.69812}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4106208274731630}
@@ -2475,7 +2474,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!95 &95797199675860560
 Animator:
@@ -2535,7 +2534,18 @@ MonoBehaviour:
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.5
+  m_GroundCheckDistance: 0.3
+--- !u!114 &114344648236312114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522157151163196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee3031e790914948bd958bf96892201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114352022105129866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2556,30 +2566,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c271865ee8822c74d9992ff3aef4fe97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neighbor: []
-  leader: {fileID: 0}
---- !u!114 &114534044549422238
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1522157151163196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1c6252cbdf4b445b71a2cbed20635a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114568921882093490
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1522157151163196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e3ba22714234d54c95f292e60a1368f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114659246678912398
@@ -2604,7 +2590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a8f172c5f968e43820e8d425a50b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114753736755903138
+--- !u!114 &114971472433795646
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2612,7 +2598,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1522157151163196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77cdb6a89b28cc84aba323b68f83b002, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e3ba22714234d54c95f292e60a1368f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135211715109013594
@@ -2625,7 +2611,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.2
+  m_Radius: 5
   m_Center: {x: 0, y: 2.2167435, z: 0}
 --- !u!136 &136490760555159270
 CapsuleCollider:
@@ -2712,7 +2698,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f62b52b2d4b721742a0bc5c6b4db468d, type: 2}
+  - {fileID: 2100000, guid: 621e901dcf5ebaf46bce29d18f67194c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -15,6 +15,7 @@ public class BulletMover : MonoBehaviour {
 	void Start () {
 		GetComponent<Transform> ().Rotate (new Vector3(90.0f,0.0f,0.0f));
 		GetComponent<Rigidbody>().AddForce(speed);
+		cam = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
 
 	}
 
@@ -31,7 +32,6 @@ public class BulletMover : MonoBehaviour {
 			Debug.DrawRay (transform.position, transform.TransformDirection(-transform.forward));
 			if (hit.collider.CompareTag("Enemy")) {
 				goingToHit = true;
-				cam = GameObject.FindGameObjectWithTag ("Player").GetComponent<Camera>();
 				//OriginalPos = cam.transform.position;
 			}
 		}
@@ -45,7 +45,7 @@ public class BulletMover : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.CompareTag ("Enemy")) {
+		if (collision.gameObject.CompareTag ("Enemy")||collision.gameObject.CompareTag ("Leader")) {
 			Destroy (collision.gameObject);
 			Debug.Log ("HIT");
 		}
