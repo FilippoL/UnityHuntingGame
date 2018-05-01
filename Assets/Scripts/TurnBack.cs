@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnBack : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider coll){
-		if (coll.CompareTag("Enemy")) {
+		if (coll.CompareTag("Enemy") || coll.CompareTag("Leader")) {
 			coll.transform.Rotate (new Vector3(0.0f,180.0f,0.0f));
 		}
 

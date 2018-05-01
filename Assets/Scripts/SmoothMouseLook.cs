@@ -8,6 +8,9 @@ public class SmoothMouseLook : MonoBehaviour {
 	private float sensitivityX;
 	private float sensitivityY;
 
+	private float zooming_sensitivityX;
+	private float zooming_sensitivityY;
+
 	public float minimumX = -360F;
 	public float maximumX = 360F;
 
@@ -16,6 +19,8 @@ public class SmoothMouseLook : MonoBehaviour {
 
 	float rotationX = 0F;
 	float rotationY = 0F;
+
+	public bool zooming;
 
 	private List<float> rotArrayX = new List<float>();
 	float rotAverageX = 0F;	
@@ -28,10 +33,27 @@ public class SmoothMouseLook : MonoBehaviour {
 	Quaternion originalRotation;
 
 
+	public float Sensibility
+	{
+		set{sensitivityX = value;
+			sensitivityY = value;}
+
+		get{return sensitivityX;}
+	}
+
+	public float ZoomingSensibility
+	{
+		set{zooming_sensitivityX = value;
+			zooming_sensitivityY = value;}
+
+		get{return zooming_sensitivityX;}
+	}
+
 
 	void Start ()
 	{		
 		sensitivityX = sensitivityY = 1;
+		zooming_sensitivityX = zooming_sensitivityY = 0.1f;
 		Rigidbody rb = GetComponent<Rigidbody>();	
 		if (rb)
 			rb.freezeRotation = true;
@@ -43,11 +65,13 @@ public class SmoothMouseLook : MonoBehaviour {
 		rotAverageY = 0f;
 		rotAverageX = 0f;
 
-		rotationY += Input.GetAxis("Mouse Y") * sensitivityX;
-		rotationX += Input.GetAxis("Mouse X") * sensitivityY;
-
-		Debug.Log ( sensitivityX);
-		Debug.Log ( sensitivityY);
+		if (zooming) {
+			rotationY += Input.GetAxis("Mouse Y") * zooming_sensitivityX;
+			rotationX += Input.GetAxis("Mouse X") * zooming_sensitivityY;
+		} else {
+			rotationY += Input.GetAxis("Mouse Y") * sensitivityX;
+			rotationX += Input.GetAxis("Mouse X") * sensitivityY;
+		}
 
 		rotArrayY.Add(rotationY);
 		rotArrayX.Add(rotationX);
@@ -93,11 +117,5 @@ public class SmoothMouseLook : MonoBehaviour {
 		return Mathf.Clamp (angle, min, max);
 	}
 
-	public float Sensibility
-	{
-		set{sensitivityX = value;
-			sensitivityY = value;}
 
-		get{return sensitivityX;}
-	}
 }

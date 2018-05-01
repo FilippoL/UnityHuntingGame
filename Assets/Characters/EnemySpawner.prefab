@@ -33,8 +33,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1994322708489484}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 201.7, y: 24.35, z: 212.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -151.20079, y: -15.516466, z: 105.718315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36932e0142f8f9d41860a3a74ffbe133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn_what: {fileID: 1093083792222562, guid: 28192ad0ab2a15e409b15effcc8551bf, type: 2}
+  spawn_what: {fileID: 1522157151163196, guid: 28192ad0ab2a15e409b15effcc8551bf, type: 2}
   radius: 50
   fixed_number: 0
-  max_objects: 5
+  leader_based: 1
+  leader_frequency: 5
+  max_objects: 1

@@ -27,12 +27,13 @@ public class InGamePauseMenu : MonoBehaviour {
 	}
 
 	public void BackToPlay(){
-		Cursor.lockState = CursorLockMode.None;
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<SmoothMouseLook> ().enabled = true;
 		Cursor.lockState = CursorLockMode.Locked;
-		Time.timeScale = 1;	}
+		Time.timeScale = 1;	
+	}
 
 	public void GoToMainMenu(){
+		Time.timeScale = 1;	
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex - 1);
 	}
 		

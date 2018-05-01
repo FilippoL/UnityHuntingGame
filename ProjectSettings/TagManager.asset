@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Limit
   - Leader
+  - Level
   layers:
   - Default
   - TransparentFX

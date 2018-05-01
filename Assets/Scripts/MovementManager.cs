@@ -54,11 +54,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				}
 
 				Debug.DrawRay (m_Character.transform.position, FinalSteer);
-				m_Character.gameObject.GetComponent<Rigidbody> ().AddForce (FinalSteer);
-				m_Character.Move(FinalSteer.normalized, false, _jumping);
-			} else {
-				m_Character.Move(Vector3.zero, false, false);
-			}
+				m_Character.Move (FinalSteer.normalized, false, _jumping);				
+			} 
 
 		}
 

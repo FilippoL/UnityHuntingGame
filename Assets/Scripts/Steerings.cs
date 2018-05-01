@@ -57,9 +57,9 @@ public class Steerings {
 
 					float scale = desired_direction.magnitude / (float)Mathf.Sqrt (2f);
 
-					Debug.DrawRay (Origin.position, desired_direction.normalized / scale, Color.blue);
+					Debug.DrawRay (Origin.position, desired_direction / scale, Color.blue);
 
-					moveVector += desired_direction.normalized / scale;
+					moveVector += desired_direction / scale;
 
 				}
 			}
@@ -80,7 +80,7 @@ public class Steerings {
 
 		desired_direction = (Target.TransformPoint(new Vector3(0.0f,0.0f,-1.15f))) - Origin.position;
 
-		Debug.DrawLine (Origin.position,Origin.position + desired_direction, Color.red);
+		Debug.DrawLine (Origin.position, Origin.position + desired_direction, Color.red);
 
 		moveVector = (desired_direction);
 

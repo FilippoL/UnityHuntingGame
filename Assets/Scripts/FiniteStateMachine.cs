@@ -8,7 +8,7 @@ public class FiniteStateMachine : MonoBehaviour {
 	IEnumerator _currState;
 	IEnumerator _nextState;
 
-	private List <Transform> _neighbors = new List <Transform>();
+	public List <Transform> _neighbors = new List <Transform>();
 	private Transform _leader;
 	private int max__flock = 5;
 	private bool _leader_locked = false;
@@ -128,9 +128,9 @@ public class FiniteStateMachine : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider coll){
-		if (coll.tag != null && coll.transform != transform) {
-			if (!_leader_locked && coll.CompareTag("Leader") && gameObject.tag != "Leader" && 
-				_neighbors.Count < max__flock && !coll.GetComponent<FiniteStateMachine>().attacking) { 
+		if (coll.tag != null && coll.transform != gameObject.transform) {
+			if (!_leader_locked && coll.CompareTag("Leader") && gameObject.tag != "Leader" 
+				&& !coll.GetComponent<FiniteStateMachine>().attacking) { 
 
 				_leader = coll.transform; //get the leader transform once so doesnt get confused with other leader's
 				_flock = true; 
@@ -138,9 +138,19 @@ public class FiniteStateMachine : MonoBehaviour {
 				_nextState = Flock (); //change state
 			} 
 
-			if (coll.CompareTag("Enemy") && coll.GetComponent<FiniteStateMachine>().flocking && _flock) {
-				_neighbors.Add (coll.transform);	
+
+			/*if (_neighbors.Count > max__flock) {
+				_flock = false;
+				_leader_locked = true;
+				_neighbors.Clear();
+				_nextState = Moving (); //change state
+			}*/
+
+
+			if (coll.CompareTag("Enemy") && _flock && !_neighbors.Contains(coll.transform)) {
+				_neighbors.Add (coll.transform);
 			}				
+
 
 			if (coll.CompareTag("Bullet") && _currState != Alert() ) { //if is too close to the bullet or the player, evade it
 				if (gameObject.CompareTag ("Leader") ) {
@@ -172,8 +182,11 @@ public class FiniteStateMachine : MonoBehaviour {
 				_neighbors.Clear ();
 				_nextState = Moving ();
 
-			} else if (coll.CompareTag ("Enemy") && coll.GetComponent<FiniteStateMachine> ().flocking && _flock) {
-				neighbors.Remove (coll.transform);
+			} else if (coll.CompareTag ("Enemy")) {
+				if (_neighbors.Contains(coll.transform)) {
+					_neighbors.Remove (coll.transform);
+					
+				}
 			}	
 		}
 	}

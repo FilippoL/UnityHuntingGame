@@ -46,9 +46,13 @@ public class SniperMovements : MonoBehaviour
 		} 
 
 		if (!isScope) {
+			mouseLook.zooming = false;
 			standardSensitivity = mouseLook.Sensibility;
 			currentZoom = 1;
-		} 
+		} else {
+			mouseLook.zooming = true;
+			zoomSensitivity = mouseLook.ZoomingSensibility;
+		}
 
 
 		ZoomSight();
@@ -58,7 +62,7 @@ public class SniperMovements : MonoBehaviour
 
 	void ZoomSight()
 	{
-		if (currentZoom == 1) 
+		if (!isScope) 
 		{
 			//Change sensitivity
 			mouseLook.Sensibility = standardSensitivity;
@@ -66,7 +70,7 @@ public class SniperMovements : MonoBehaviour
 		else 
 		{
 			//Change sensitivity
-			mouseLook.Sensibility = zoomSensitivity;
+			mouseLook.ZoomingSensibility = zoomSensitivity;
 		}
 
 		//Zoom with mouse wheel
