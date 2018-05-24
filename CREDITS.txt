@@ -1,0 +1,21 @@
+All the credits for the programming side go to myself Filippo Maria Libardi.
+Some external assets and unity packages have been used in the development.
+Here is the list of the External Assets I have used:
+
+-A neat and free download unity landscape with assets and prefabs for trees rocks etc..
+(https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573).
+
+-From the Unity Standard Assets Pack, I’ve imported Ethan (the only “player mesh”), I have also harvested all the scripts for movements, keeping only the one that links the move vector to the animations.
+(https://assetstore.unity.com/packages/essentials/asset-packs/standard-assets-32351)
+
+-The SkyBox
+(https://assetstore.unity.com/publishers/20529)
+
+-The sniper model found on the web as a free model
+(https://free3d.com/3d-model/enhanced-awp-67528.html)
+
+-From the Unity Asset Store I downloaded the shaded text package "TextMeshPro"
+(https://assetstore.unity.com/packages/essentials/beta-projects/textmesh-pro-84126)
+
+-From a coursemate of mine I got the bullet model
+all credits to Jason M. Jool (no website available)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MovementManager = UnityStandardAssets.Characters.ThirdPerson.MovementManager;
 
 public class Spawner : MonoBehaviour {
@@ -10,6 +11,8 @@ public class Spawner : MonoBehaviour {
 	public bool fixed_number;
 	public bool leader_based;
 	public int leader_frequency;
+
+	public Text AlertText;
 
 	private List <GameObject> objects_spawned = new List<GameObject>();
 
@@ -27,6 +30,7 @@ public class Spawner : MonoBehaviour {
 					if ((i % leader_frequency) == 0) {
 						objects_spawned[i].tag = "Leader";
 						objects_spawned[i].GetComponent<MovementManager>().canjump = true;	
+						objects_spawned[i].GetComponent<FiniteStateMachine>().AlertText = AlertText;
 					} 	
 				}
 				if ((i % 2) == 0 ) {

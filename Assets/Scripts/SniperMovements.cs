@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-
 public class SniperMovements : MonoBehaviour
 {
 	public Camera cam;
@@ -14,6 +13,7 @@ public class SniperMovements : MonoBehaviour
 	[System.NonSerialized] public bool isScope;
 	public AudioClip shooting;
 	public AudioClip reloading;
+
 
 	public AudioSource audio_source;
 	//Need the initial camera FOV so we can zoom
@@ -34,7 +34,6 @@ public class SniperMovements : MonoBehaviour
 		initialFOV = cam.fieldOfView;
 
 		mouseLook = GetComponent<SmoothMouseLook>();
-
 	}
 
 	void Update() 
@@ -104,7 +103,7 @@ public class SniperMovements : MonoBehaviour
 			if ((Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) && !audio_source.isPlaying && Time.timeScale != 0) {
 				//Create a new bullet
 				GameObject newBullet = Instantiate (bulletObj, cam.transform.position, cam.transform.rotation);
-
+								 
 				audio_source.PlayOneShot (shooting);
 
 				//Give it speed
@@ -122,14 +121,13 @@ public class SniperMovements : MonoBehaviour
 	private void OnTriggerEnter(Collider coll)
 	{
 		if (coll.CompareTag ("Leader") && coll.gameObject.GetComponent<FiniteStateMachine>().attacking) {
+			Cursor.lockState = CursorLockMode.None;
 
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex - 1);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 
 			Debug.Log ("GAMEOVER");
 		}
 	}
-
-
 }
 
 	

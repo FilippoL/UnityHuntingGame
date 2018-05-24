@@ -11,6 +11,8 @@ TagManager:
   - Limit
   - Leader
   - Level
+  - ScoreText
+  - GameOverMenu
   layers:
   - Default
   - TransparentFX

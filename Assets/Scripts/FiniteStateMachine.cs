@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MovementManager = UnityStandardAssets.Characters.ThirdPerson.MovementManager;
 
 public class FiniteStateMachine : MonoBehaviour {
@@ -8,15 +9,15 @@ public class FiniteStateMachine : MonoBehaviour {
 	IEnumerator _currState;
 	IEnumerator _nextState;
 
-	public List <Transform> _neighbors = new List <Transform>();
-	private Transform _leader;
+	[SerializeField]private List <Transform> _neighbors = new List <Transform>();
+	[SerializeField]private Transform _leader;
 	private int max__flock = 5;
 	private bool _leader_locked = false;
 	private Vector3 _hitpoint;
 	private bool _flock;
 	private bool _attacking;
 	private float _time_since_here;
-
+	public Text AlertText;
 
 	public Vector3 hitPoint{		
 		get { return _hitpoint; }
@@ -43,6 +44,12 @@ public class FiniteStateMachine : MonoBehaviour {
 		StartCoroutine(StateMachine()); 
 	}
 
+	IEnumerator ShowMessage (string message, float delay) {
+		AlertText.text = message;
+		AlertText.enabled = true;
+		yield return new WaitForSeconds(delay);
+		AlertText.enabled = false;
+	}
 
 	IEnumerator Moving(){
 		GetComponent<MovementManager> ().ClearSteerings ();
@@ -52,11 +59,8 @@ public class FiniteStateMachine : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Tab)) {
 				_nextState = Idling ();
 			}
-
-
 			yield return null;
 		}
-
 	}
 
 	IEnumerator Alert(){
@@ -78,15 +82,24 @@ public class FiniteStateMachine : MonoBehaviour {
 		GetComponent<MovementManager> ().AddSteering(GetComponent<FollowInput>());
 		GetComponent<MovementManager> ().AddSteering(GetComponent<SeparationInput>());
 		while (_nextState == null) {
-			if (GetComponent<FollowInput>().Steering == Vector3.zero) {
-				_nextState = Moving ();
+			
+			if (_neighbors.Count > max__flock || leader == null) {
+				_leader = null;
+				_flock = false;
+				_leader_locked = false;
+				_neighbors.Clear();
+				_nextState = Idling (); //change state
 			}
+				
 			yield return null;
 		}
 
 	}
 
 	IEnumerator Attack(){
+
+		StartCoroutine(ShowMessage ("...KILL THE LEADERS BEFORE THEY REACH YOU...", 3));
+
 		GetComponent<MovementManager> ().ClearSteerings ();
 		GetComponent<MovementManager> ().AddSteering(GetComponent<AvoidInput>());
 		GetComponent<MovementManager> ().AddSteering(GetComponent<SeekInput>());
@@ -114,7 +127,8 @@ public class FiniteStateMachine : MonoBehaviour {
 		GetComponent<MovementManager> ().AddSteering(GetComponent<AvoidInput>());
 		while (_nextState == null) {
 
-
+			yield return new WaitForSeconds (1.5f);
+			_nextState = Moving ();
 			yield return null;
 		}
 	}
@@ -137,16 +151,7 @@ public class FiniteStateMachine : MonoBehaviour {
 				_leader_locked = true;
 				_nextState = Flock (); //change state
 			} 
-
-
-			/*if (_neighbors.Count > max__flock) {
-				_flock = false;
-				_leader_locked = true;
-				_neighbors.Clear();
-				_nextState = Moving (); //change state
-			}*/
-
-
+				
 			if (coll.CompareTag("Enemy") && _flock && !_neighbors.Contains(coll.transform)) {
 				_neighbors.Add (coll.transform);
 			}				
@@ -173,9 +178,22 @@ public class FiniteStateMachine : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerStay(Collider coll){
+	
+		if (gameObject.CompareTag("Enemy")) {
+			if (coll.CompareTag("Enemy")) {
+				if (coll.GetComponent<FiniteStateMachine>().leader == null) {
+					if (_neighbors.Contains(coll.transform)) {
+						_neighbors.Remove (coll.transform);
+					}
+				}
+			}
+		}
+	}
+
 	private void OnTriggerExit(Collider coll){
 		if (coll.tag != null) {
-			if (coll.CompareTag ("Leader") && coll.transform == leader) {
+			if (coll.transform == _leader) {
 				_leader = null;
 				_flock = false;
 				_leader_locked = false;

@@ -45,17 +45,17 @@ public class Steerings {
 		//Empty target object with rot trans scale values
 		Vector3 desired_direction = new Vector3();
 		Vector3 moveVector;
-
+		float radius = 4f;
 
 		moveVector = desired_direction;
 
 		foreach (var neighbor in Targets) {
 			if (neighbor != null) {
-				if (Vector3.Distance (Origin.position, neighbor.position) < 2f) {
+				if (Vector3.Distance (Origin.position, neighbor.position) < radius) {
 
 					desired_direction = neighbor.position - Origin.position;
 
-					float scale = desired_direction.magnitude / (float)Mathf.Sqrt (2f);
+					float scale = desired_direction.magnitude / (float)Mathf.Sqrt (radius);
 
 					Debug.DrawRay (Origin.position, desired_direction / scale, Color.blue);
 
