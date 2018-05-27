@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// A neater overview of some of the following behaviours can be found in the last section of the README.md 
+/// </summary>
 public class Steerings {
 	static public List <Vector3> RandomPositions = new List <Vector3>();
 
+    /// <summary>
+    /// Seek is very simple behaviour, the agent will just chase at full speed
+    /// </summary>
+    /// <param name="Origin"> The origin Transform</param>
+    /// <param name="Target"> The Target Transform</param>
+    /// <returns> Return the vector to the target, not range based</returns>
 	public static Vector3 Seek(Transform Origin, Transform Target)	{
 	
 		Vector3 desired_direction = new Vector3();
@@ -17,6 +25,12 @@ public class Steerings {
 		return moveVector.normalized;
 	}
 
+    /// <summary>
+    /// Evade is the opposite of seeking, but this time will evade up to a certain distance and then stop (will change state in this case)
+    /// </summary>
+    /// <param name="Origin"> The origin Transform</param>
+    /// <param name="Target"> The Target Transform</param>
+    /// <returns>Returns the vector opposite of the direction to the Target</returns>
 	public static Vector3 Evade(Transform Origin, Vector3 Target)	{
 
 		//Empty target object with rot trans scale values
@@ -40,7 +54,13 @@ public class Steerings {
 
 	}
 
-	public static Vector3 Separate(Transform Origin, List<Transform> Targets)	{
+    /// <summary>
+    /// Separate will make the agents never get too close when flocking, this takes in account the number of memebers of the flock
+    /// </summary>
+    /// <param name="Origin"> The origin Transform</param>
+    /// <param name="Target"> The List of Target Transform, all the targets are needed to calculate the right distance to be kept between each</param>
+    /// <returns>returns the Vector pushing away from Targets</returns>
+    public static Vector3 Separate(Transform Origin, List<Transform> Targets)	{
 
 		//Empty target object with rot trans scale values
 		Vector3 desired_direction = new Vector3();
@@ -70,9 +90,14 @@ public class Steerings {
 		moveVector *= -1;
 		return moveVector;
 	}
-		
 
-	public static Vector3 Follow(Transform Origin, Transform Target)	{
+    /// <summary>
+    /// Follow is like seek but it will aim for a point specified in local coordinates near the target, also the velocity is range based
+    /// </summary>
+    /// <param name="Origin"> The origin Transform</param>
+    /// <param name="Target"> The Target Transform</param>
+    /// <returns>Returns the vector leading to a point near the target specified in local coordinates</returns>
+    public static Vector3 Follow(Transform Origin, Transform Target)	{
 		//Empty target object with rot trans scale values
 
 		Vector3 desired_direction = new Vector3();
@@ -87,6 +112,11 @@ public class Steerings {
 		return moveVector;
 	}	
 
+    /// <summary>
+    /// Wander is just picking up a random position every time
+    /// </summary>
+    /// <param name="Origin">Just needs the origin point</param>
+    /// <returns>Returns the direction to a random point on the map</returns>
 	public static Vector3 Wander (Transform Origin)
 	{
 		float maxJitter = 0.10f;
@@ -95,8 +125,12 @@ public class Steerings {
 		return desired_direction;
 	}
 
-
-	public static Vector3 Avoid (Transform Origin)
+    /// <summary>
+    /// Avoiding will make the agent avoid obstacles by checking the closest ones getting the a vector which is basically the "flipped"(/ -> \) direction towards it
+    /// </summary>
+    /// <param name="Origin">Just needs the origin point</param>
+    /// <returns>Returns the vector pushing away from the obstacle</returns>
+    public static Vector3 Avoid (Transform Origin)
 	{
 		Rigidbody rb = Origin.gameObject.GetComponent<Rigidbody> ();
 
